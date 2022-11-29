@@ -32,13 +32,37 @@
       };
     ?>
 
-      <!-- <div class="page-links">
-        <h2 class="page-links__title"><a href="#">About Us</a></h2>
-        <ul class="min-list">
-          <li class="current_page_item"><a href="#">Our History</a></li>
-          <li><a href="#">Our Goals</a></li>
-        </ul>
-      </div> -->
+    <!-- SHOW THE SIDEBAR LINKS MENU ONLY IF THE PAGE IS A PARENT PAGE OR A CHILDREN PAGE -->
+    <?php
+    // CHECK IF A PAGE IS A PARENT PAGE
+    // IF GET_PAGES() RETURN SOMETHING, THAT IS A PARENT PAGE, ELSE IT WILL RETURN 0
+    $isAParent = get_pages(array(
+      'child_of' => get_the_ID()
+    ));
+
+    if($theParent || $isAParent) { ?>
+    <!-- SHOWS A SIDEBAR WITH THE PARENT PAGE AND RELATED CHILDREN PAGES -->
+    <div class="page-links">
+      <!-- IF $THEPARENT RETURNS ZERO, GET_THE_TITLE() WILL KNOW THAT WE'RE SEARCHING THE TITLE FOR THE CURRENT PAGE, OR IT WILL GET THE CHILD PAGE TITLE -->
+      <h2 class="page-links__title"><a href="<?php the_permalink($theParent)?>"><?php echo get_the_title($theParent)?></a></h2>
+      <ul class="min-list">
+        <?php
+          if($theParent){
+            // IF IT RETURNS AN ID, IT'S A CHILDREN PAGE, SO GET THE RELATED PARENT PAGE
+            $findChildrenOf = $theParent;
+          } else {
+            // IF RETURN 0 IT'S A PARENT PAGE, SO JUST GET THE ID
+            $findChildrenOf = get_the_ID();
+          }
+
+          wp_list_pages(array(
+            'title_li' => NULL,
+            'child_of' => $findChildrenOf
+          ));
+        ?>
+      </ul>
+    </div>
+    <?php } ?>
 
       <div class="generic-content">
         <?php the_content(); ?>
