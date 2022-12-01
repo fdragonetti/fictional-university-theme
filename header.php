@@ -25,11 +25,11 @@
           ?>
           <!-- HARDCODED HEADER MENU -->
           <ul>
-            <li><a href="<?php echo site_url('/about-us') ?>">About Us</a></li>
+            <li <?php if (is_page('about-us-2') || wp_get_post_parent_id(0) == 21) echo 'class="current-menu-item"' ?>><a href="<?php echo site_url('/about-us-2'); ?>">About Us</a></li>
             <li><a href="#">Programs</a></li>
             <li><a href="#">Events</a></li>
             <li><a href="#">Campuses</a></li>
-            <li><a href="#">Blog</a></li>
+            <li <?php if (get_post_type() == 'post') echo 'class="current-menu-item"' ?>><a href="<?php echo site_url('/blog');?>">Blog</a></li>
           </ul>
         </nav>
         <div class="site-header__util">
