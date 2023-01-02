@@ -21,7 +21,7 @@ function university_features() {
 
 add_action('after_setup_theme', 'university_features');
 
-// EVENT CUSTOM POST TYPE
+// EVENT CUSTOM POST TYPE (ALTERNATIVELY CAN BE DONE AS "MUST USE" PLUGIN)
 function university_post_types() {
   register_post_type('event', array(
     'show_in_rest' => true,
